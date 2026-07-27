@@ -1,0 +1,24 @@
+# Generated retrieval index — rebuildable from corpus/ via `python ingest.py`
+index/
+
+# Private local tier — indexed but NEVER pushed. Keep the folder, ignore contents.
+local/*
+!local/.gitkeep
+
+# Inbox — transient drop zone for raw uploads, processed into local/.
+inbox/*
+!inbox/.gitkeep
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Local model cache (fastembed downloads here if set)
+.fastembed_cache/
+
+# Per-machine config overrides (e.g. pointing corpus at your monorepo)
+config.local.toml
+
+# macOS
+.DS_Store

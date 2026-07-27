@@ -1,0 +1,23 @@
+# Corpus engine configuration (committed defaults).
+# This is the ENGINE's default config. It ships with an empty corpus/.
+# For per-machine overrides that shouldn't be shared, create config.local.toml
+# (gitignored) with just the keys you want to change — e.g. point `corpus` at
+# your own private docs:  [paths]\n  corpus = "/path/to/your/private-docs"
+
+[paths]
+corpus = "corpus"           # canonical tier — your source of truth
+local  = "local"            # private tier — indexed locally, never pushed
+inbox  = "inbox"            # drop zone — raw files processed into local/
+index  = "index/corpus.db"  # generated hybrid index (rebuildable)
+
+[embedding]
+# Local, offline, no server. Swap for bge-large-en-v1.5 (dim 1024) or a nomic
+# model for higher recall, then run `python ingest.py --rebuild`.
+model = "BAAI/bge-base-en-v1.5"
+dim   = 768
+
+[chunking]
+target_chars  = 2800   # preferred chunk size (~700 tokens)
+max_chars     = 4200   # hard cap for prose (code fences kept whole, may exceed)
+min_chars     = 400    # merge segments smaller than this into neighbours
+overlap_chars = 200    # carried context when splitting an oversized segment
